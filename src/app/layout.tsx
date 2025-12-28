@@ -6,16 +6,17 @@ import { onest } from './fonts';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: "Путешествие в Корею",
-  description: "",
-  keywords: 'Республика Корея, Южная Корея, Корея, путешествие в Южную Корею, путешествие в Респубилку Корея, путешествие в Корею',
+  title: 'Путешествие в Корею',
+  description: '',
+  keywords:
+    'Республика Корея, Южная Корея, Корея, путешествие в Южную Корею, путешествие в Респубилку Корея, путешествие в Корею',
   openGraph: {
-    title: "Путешествие в Республику Корея",
-    description: "Сайт с краткой информацией о путешествии в Республику Корея",
+    title: 'Путешествие в Республику Корея',
+    description: 'Сайт с краткой информацией о путешествии в Республику Корея',
     siteName: 'Путешествие в Корею',
     url: 'https://elenaustimenko.github.io/my-project-2025/',
     type: 'website',
-  }
+  },
 };
 
 export default function RootLayout({
@@ -24,10 +25,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={onest.className}>
+    <html lang='ru' className={onest.className}>
       <head>
         {/* Yandex.Metrika */}
-        <Script id="yandex-metrika" strategy="afterInteractive">
+        <Script id='yandex-metrika' strategy='afterInteractive'>
           {`
             (function(m,e,t,r,i,k,a){
               m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -45,10 +46,10 @@ export default function RootLayout({
         {/* Yandex.Metrika noscript */}
         <noscript>
           <div>
-            <img 
-              src="https://mc.yandex.ru/watch/103541965" 
-              style={{position:'absolute', left:'-9999px'}} 
-              alt="" 
+            <img
+              src='https://mc.yandex.ru/watch/103541965'
+              style={{ position: 'absolute', left: '-9999px' }}
+              alt=''
             />
           </div>
         </noscript>
