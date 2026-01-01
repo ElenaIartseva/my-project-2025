@@ -48,7 +48,7 @@ export const CityPage = () => {
       {hasVideos && (
         <>
           <p className={`${classes.cityAbout_text} ${classes.text_shine}`}>
-            кликни по видосику, чтобы увеличить его
+            кликни по видео, чтобы посмотреть его
           </p>
           <VideoList city={cityData} />
         </>

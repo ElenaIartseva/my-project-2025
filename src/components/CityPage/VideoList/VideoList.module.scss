@@ -8,21 +8,31 @@
 
 .videoList_container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 360px));
   gap: 20px;
   padding: 0 20px;
+  justify-content: center;
 }
 
 .videoList_card {
   position: relative;
   border-radius: 12px;
+  width: 100%;
+  max-width: 360px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  border: var(--border-video);
 
   &:hover {
     transform: translateY(-5px);
   }
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  height: 260px;
 }
 
 .videoList_video {

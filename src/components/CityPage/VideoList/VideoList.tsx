@@ -64,12 +64,17 @@ export const VideoList: React.FC<VideoListProps> = ({ city }) => {
               whileHover={{ x: -6, scale: 1.02 }}
               transition={{ type: 'tween', duration: 0.2 }}
               className={classes.videoList_card}
-              onClick={() => handleVideoClick(video.src)}
             >
-              <video className={classes.videoList_video}>
-                <source src={video.src} type='video/webm' />
-                Упс, похоже Ваш браузер не поддерживает видео
-              </video>
+              <div className={classes.videoWrapper}>
+                <video className={classes.videoList_video}>
+                  <source src={video.src} type='video/webm' />
+                  Упс, похоже Ваш браузер не поддерживает видео
+                </video>
+                <button
+                  className={classes.btn_play}
+                  onClick={() => handleVideoClick(video.src)}
+                ></button>
+              </div>
             </motion.div>
           ))}
         </motion.div>
