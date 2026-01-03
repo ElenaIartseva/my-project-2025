@@ -164,6 +164,13 @@
   -ms-user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
+  cursor: grab;
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+
+  &:active {
+    cursor: grabbing;
+  }
 
   @media (max-width: 768px) {
     max-width: calc(
@@ -208,6 +215,12 @@
   border-radius: var(--border-radius40);
   transition: all 400ms ease-in-out;
   flex-shrink: 0;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    transition: transform 0.1s;
+  }
 
   &_dimmed {
     opacity: 0.5;
@@ -286,4 +299,13 @@
 
 .fadeRight {
   mask-image: linear-gradient(to right, black 0%, black 95%, transparent 100%);
+}
+
+.dragging {
+  cursor: grabbing;
+
+  .card {
+    transition: none;
+    user-select: none;
+  }
 }

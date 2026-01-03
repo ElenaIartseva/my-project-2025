@@ -16,6 +16,12 @@ export const Places = () => {
   >({});
   const gap = 40;
 
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [currentOffset, setCurrentOffset] = useState(0);
+  const dragThreshold = 5;
+
   const addToRefs = useCallback((el: HTMLDivElement | null, index: number) => {
     cardsRef.current[index] = el;
   }, []);
@@ -30,6 +36,7 @@ export const Places = () => {
         const cardsFit = Math.floor(wrapperWidth / (newCardWidth + gap));
         setVisibleCards(Math.max(1, cardsFit));
       }
+      setDragOffset(0);
     };
 
     handleResize();
@@ -106,7 +113,113 @@ export const Places = () => {
     }
   };
 
-  const cardOffset = -currentIndex * (cardWidth + gap);
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!wrapperRef.current) return;
+
+    setIsDragging(true);
+    setDragStartX(e.clientX);
+    setCurrentOffset(-currentIndex * (cardWidth + gap));
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !wrapperRef.current) return;
+
+    const deltaX = e.clientX - dragStartX;
+    setDragOffset(deltaX);
+
+    const maxDragOffset = (cardWidth + gap) * 0.5;
+    const clampedDelta = Math.max(
+      Math.min(deltaX, maxDragOffset),
+      -maxDragOffset
+    );
+    setDragOffset(clampedDelta);
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+
+    setIsDragging(false);
+
+    const dragDistance = dragOffset;
+    const cardStep = cardWidth + gap;
+
+    if (Math.abs(dragDistance) > cardStep * 0.3) {
+      if (dragDistance < 0 && !isForwardDisabled) {
+        setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
+      } else if (dragDistance > 0 && !isBackDisabled) {
+        setCurrentIndex((prev) => Math.max(prev - 1, 0));
+      }
+    }
+    setDragOffset(0);
+  };
+
+  const handleMouseLeave = () => {
+    if (isDragging) {
+      handleMouseUp();
+    }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!wrapperRef.current) return;
+
+    const touch = e.touches[0];
+    setIsDragging(true);
+    setDragStartX(touch.clientX);
+    setCurrentOffset(-currentIndex * (cardWidth + gap));
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || !wrapperRef.current) return;
+
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - dragStartX;
+
+    const maxDragOffset = (cardWidth + gap) * 0.5;
+    const clampedDelta = Math.max(
+      Math.min(deltaX, maxDragOffset),
+      -maxDragOffset
+    );
+    setDragOffset(clampedDelta);
+
+    if (Math.abs(deltaX) > Math.abs(e.touches[0].clientY - dragStartX)) {
+      e.preventDefault();
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging) return;
+
+    setIsDragging(false);
+
+    const dragDistance = dragOffset;
+    const cardStep = cardWidth + gap;
+
+    if (Math.abs(dragDistance) > cardStep * 0.3) {
+      if (dragDistance < 0 && !isForwardDisabled) {
+        setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
+      } else if (dragDistance > 0 && !isBackDisabled) {
+        setCurrentIndex((prev) => Math.max(prev - 1, 0));
+      }
+    }
+    setDragOffset(0);
+  };
+
+  useEffect(() => {
+    const preventSelection = (e: Event) => {
+      if (isDragging) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('selectstart', preventSelection);
+    return () => {
+      document.removeEventListener('selectstart', preventSelection);
+    };
+  }, [isDragging]);
+
+  const baseOffset = -currentIndex * (cardWidth + gap);
+  const totalOffset = baseOffset + (isDragging ? dragOffset : 0);
 
   return (
     <section className={classes.places}>
@@ -127,13 +240,23 @@ export const Places = () => {
 
         <div className={classes.carousel_content}>
           <div
-            className={`${classes.cards_wrapper} ${fadeClass}`}
+            className={`${classes.cards_wrapper} ${fadeClass} ${
+              isDragging ? classes.dragging : ''
+            }`}
             ref={wrapperRef}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
           >
             <div
               style={{
-                transform: `translateX(${cardOffset}px)`,
-                transition: 'transform 0.5s ease-in-out',
+                transform: `translateX(${totalOffset}px)`,
+                transition: isDragging ? 'none' : 'transform 0.5s ease-in-out',
               }}
               className={classes.cards_container}
             >
@@ -145,6 +268,11 @@ export const Places = () => {
                   className={`${classes.card} ${
                     visibleCardsState[item.id] ? '' : classes.card_dimmed
                   }`}
+                  onClick={(e) => {
+                    if (Math.abs(dragOffset) > dragThreshold) {
+                      e.preventDefault();
+                    }
+                  }}
                 >
                   <div className={classes.card_imgBGWrapper}>
                     <Image
