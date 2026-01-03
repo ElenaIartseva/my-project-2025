@@ -1,4 +1,5 @@
 'use client';
+import { motion } from 'framer-motion';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { PhotoList } from '@/components/CityPage/PhotoList';
@@ -8,6 +9,29 @@ import { useParams } from 'next/navigation';
 import classes from '@/components/CityPage/CityPage.module.scss';
 
 export const CityPage = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.4,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 100, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+      },
+    },
+  };
+
   const params = useParams();
   const cityPath = params.city as string;
 
@@ -17,9 +41,22 @@ export const CityPage = () => {
     return (
       <section className={classes.cityPage}>
         <Header />
-        <div className={classes.cityAbout}>
-          <h2 className={classes.cityAbout_title}>Город не найден</h2>
-        </div>
+        <motion.div
+          className={classes.cityAbout}
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ amount: 0.1 }}
+          variants={containerVariants}
+        >
+          <motion.h2
+            className={classes.cityAbout_title}
+            variants={itemVariants}
+            whileHover={{ x: -6 }}
+            transition={{ type: 'tween', duration: 0.2 }}
+          >
+            Город не найден
+          </motion.h2>
+        </motion.div>
         <Footer />
       </section>
     );
@@ -31,12 +68,46 @@ export const CityPage = () => {
   return (
     <section className={classes.cityPage}>
       <Header />
-      <div className={classes.cityAbout}>
-        <h2 className={classes.cityAbout_title}>{cityData.name}</h2>
-        <p className={classes.cityAbout_text}>{cityData.text0}</p>
-        <p className={classes.cityAbout_text}>{cityData.text1}</p>
-        <p className={classes.cityAbout_text}>{cityData.text2}</p>
-      </div>
+      <motion.div
+        className={classes.cityAbout}
+        initial='hidden'
+        whileInView='visible'
+        viewport={{ amount: 0.1 }}
+        variants={containerVariants}
+      >
+        <motion.h2
+          className={classes.cityAbout_title}
+          variants={itemVariants}
+          whileHover={{ x: -6 }}
+          transition={{ type: 'tween', duration: 0.2 }}
+        >
+          {cityData.name}
+        </motion.h2>
+        <motion.p
+          className={classes.cityAbout_text}
+          variants={itemVariants}
+          whileHover={{ x: -6 }}
+          transition={{ type: 'tween', duration: 0.2 }}
+        >
+          {cityData.text0}
+        </motion.p>
+        <motion.p
+          className={classes.cityAbout_text}
+          variants={itemVariants}
+          whileHover={{ x: -6 }}
+          transition={{ type: 'tween', duration: 0.2 }}
+        >
+          {cityData.text1}
+        </motion.p>
+        <motion.p
+          className={classes.cityAbout_text}
+          variants={itemVariants}
+          whileHover={{ x: -6 }}
+          transition={{ type: 'tween', duration: 0.2 }}
+        >
+          {cityData.text2}
+        </motion.p>
+      </motion.div>
       {hasImages && (
         <>
           <p className={`${classes.cityAbout_text} ${classes.text_shine}`}>

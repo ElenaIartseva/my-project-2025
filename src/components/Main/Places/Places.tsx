@@ -113,60 +113,66 @@ export const Places = () => {
       <h2 className={`${classes.places_title} ${classes.text_shine}`}>
         Интересные места, которые стоит посетить во время своего путешествия
       </h2>
-      <div className={`${classes.cards_wrapper} ${fadeClass}`} ref={wrapperRef}>
-        <div
-          style={{
-            transform: `translateX(${cardOffset}px)`,
-            transition: 'transform 0.5s ease-in-out',
-          }}
-          className={classes.cards_container}
+      <div className={classes.carousel_container}>
+        <button
+          className={`${classes.btn_side} ${classes.btn_left} ${
+            isBackDisabled ? classes.disabled : ''
+          }`}
+          onClick={handleClickBack}
+          disabled={isBackDisabled}
+          aria-label='Предыдущие карточки'
         >
-          {placesList.map((item, index) => (
+          <span className={classes.btn_arrow_left}></span>
+        </button>
+
+        <div className={classes.carousel_content}>
+          <div
+            className={`${classes.cards_wrapper} ${fadeClass}`}
+            ref={wrapperRef}
+          >
             <div
-              key={item.id}
-              ref={(el) => addToRefs(el, index)}
-              data-id={item.id}
-              className={`${classes.card} ${
-                visibleCardsState[item.id] ? '' : classes.card_dimmed
-              }`}
+              style={{
+                transform: `translateX(${cardOffset}px)`,
+                transition: 'transform 0.5s ease-in-out',
+              }}
+              className={classes.cards_container}
             >
-              <div className={classes.card_imgBGWrapper}>
-                <Image
-                  className={classes.card_imgBG}
-                  src={item.img}
-                  alt={item.alt}
-                  placeholder='blur'
-                />
-              </div>
-              <div className={classes.card_infoContainer}>
-                <p className={classes.card_text}>{item.text}</p>
-              </div>
+              {placesList.map((item, index) => (
+                <div
+                  key={item.id}
+                  ref={(el) => addToRefs(el, index)}
+                  data-id={item.id}
+                  className={`${classes.card} ${
+                    visibleCardsState[item.id] ? '' : classes.card_dimmed
+                  }`}
+                >
+                  <div className={classes.card_imgBGWrapper}>
+                    <Image
+                      className={classes.card_imgBG}
+                      src={item.img}
+                      alt={item.alt}
+                      placeholder='blur'
+                    />
+                  </div>
+                  <div className={classes.card_infoContainer}>
+                    <p className={classes.card_text}>{item.text}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-      <div className={classes.btn_wrapper}>
-        <p className={classes.btn_text}>Листайте, чтобы увидеть больше</p>
-        <div className={classes.btn_container}>
-          <div className={classes.btn_singleWrapper}>
-            <button
-              className={`${classes.btn_back} ${
-                isBackDisabled ? classes.disabled : ''
-              }`}
-              onClick={handleClickBack}
-              disabled={isBackDisabled}
-            ></button>
-          </div>
-          <div className={classes.btn_singleWrapper}>
-            <button
-              className={`${classes.btn_forward} ${
-                isForwardDisabled ? classes.disabled : ''
-              }`}
-              onClick={handleClickForward}
-              disabled={isForwardDisabled}
-            ></button>
           </div>
         </div>
+
+        <button
+          className={`${classes.btn_side} ${classes.btn_right} ${
+            isForwardDisabled ? classes.disabled : ''
+          }`}
+          onClick={handleClickForward}
+          disabled={isForwardDisabled}
+          aria-label='Следующие карточки'
+        >
+          <span className={classes.btn_arrow_right}></span>
+        </button>
       </div>
     </section>
   );
