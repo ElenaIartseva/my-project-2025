@@ -28,14 +28,16 @@ export const Places = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      const newCardWidth = window.innerWidth <= 768 ? 320 : 440;
+      if (!wrapperRef.current) return;
+
+      const wrapperWidth = wrapperRef.current.clientWidth;
+      const isMobile = window.innerWidth <= 768;
+
+      const newCardWidth = isMobile ? Math.min(360, wrapperWidth - gap) : 440;
       setCardWidth(newCardWidth);
 
-      if (wrapperRef.current) {
-        const wrapperWidth = wrapperRef.current.clientWidth;
-        const cardsFit = Math.floor(wrapperWidth / (newCardWidth + gap));
-        setVisibleCards(Math.max(1, cardsFit));
-      }
+      const cardsFit = Math.floor(wrapperWidth / (newCardWidth + gap));
+      setVisibleCards(Math.max(1, cardsFit));
       setDragOffset(0);
     };
 
@@ -126,13 +128,11 @@ export const Places = () => {
     if (!isDragging || !wrapperRef.current) return;
 
     const deltaX = e.clientX - dragStartX;
-    setDragOffset(deltaX);
 
-    const maxDragOffset = (cardWidth + gap) * 0.5;
-    const clampedDelta = Math.max(
-      Math.min(deltaX, maxDragOffset),
-      -maxDragOffset
-    );
+    const maxDragLeft = isBackDisabled ? 0 : (cardWidth + gap) * 0.5;
+    const maxDragRight = isForwardDisabled ? 0 : (cardWidth + gap) * 0.5;
+
+    const clampedDelta = Math.max(Math.min(deltaX, maxDragRight), -maxDragLeft);
     setDragOffset(clampedDelta);
   };
 
@@ -175,11 +175,10 @@ export const Places = () => {
     const touch = e.touches[0];
     const deltaX = touch.clientX - dragStartX;
 
-    const maxDragOffset = (cardWidth + gap) * 0.5;
-    const clampedDelta = Math.max(
-      Math.min(deltaX, maxDragOffset),
-      -maxDragOffset
-    );
+    const maxDragLeft = isBackDisabled ? 0 : (cardWidth + gap) * 0.5;
+    const maxDragRight = isForwardDisabled ? 0 : (cardWidth + gap) * 0.5;
+
+    const clampedDelta = Math.max(Math.min(deltaX, maxDragRight), -maxDragLeft);
     setDragOffset(clampedDelta);
 
     if (Math.abs(deltaX) > Math.abs(e.touches[0].clientY - dragStartX)) {
