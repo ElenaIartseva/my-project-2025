@@ -1,9 +1,10 @@
 'use client';
-import { VideoListProps } from './VideoList.props';
+import { VideoListProps } from '../CityPage.props';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Modal } from '@/components/Modal/Modal';
 import { VideoPlayer } from '@/components/VideoPlayer/VideoPlayer';
+import Image from 'next/image';
 import classes from './VideoList.module.scss';
 
 const containerVariants = {
@@ -66,13 +67,34 @@ export const VideoList: React.FC<VideoListProps> = ({ city }) => {
               className={classes.videoList_card}
             >
               <div className={classes.videoWrapper}>
-                <video className={classes.videoList_video} preload='metadata'>
-                  <source src={video.src} type='video/webm' />
+                <div className={classes.videoPoster}>
+                  <Image
+                    src={video.img}
+                    alt='Заглушка видео'
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    className={classes.posterImage}
+                  />
+                </div>
+                <video
+                  className={classes.videoList_video}
+                  preload='metadata'
+                  poster={video.img.src}
+                >
+                  <source
+                    src={typeof video.src === 'string' ? video.src : video.src}
+                    type='video/webm'
+                  />
                   Упс, похоже Ваш браузер не поддерживает видео
                 </video>
+
                 <button
                   className={classes.btn_play}
-                  onClick={() => handleVideoClick(video.src)}
+                  onClick={() =>
+                    handleVideoClick(
+                      typeof video.src === 'string' ? video.src : video.src,
+                    )
+                  }
                 ></button>
               </div>
             </motion.div>

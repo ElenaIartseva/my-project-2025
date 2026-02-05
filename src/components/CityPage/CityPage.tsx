@@ -111,7 +111,7 @@ export const CityPage = () => {
       {hasImages && (
         <>
           <p className={`${classes.cityAbout_text} ${classes.text_shine}`}>
-            кликни по фото, чтобы увеличить его
+            кликни по фото, чтобы посмотреть подробнее
           </p>
           <PhotoList city={cityData} />
         </>
@@ -119,7 +119,7 @@ export const CityPage = () => {
       {hasVideos && (
         <>
           <p className={`${classes.cityAbout_text} ${classes.text_shine}`}>
-            кликни по видео, чтобы посмотреть его
+            кликни по видео, чтобы начать просмотр
           </p>
           <VideoList city={cityData} />
         </>

@@ -24,6 +24,7 @@ import BusanImage5 from '@images/cities/busan/busan5.webp';
 import BusanImage6 from '@images/cities/busan/busan6.webp';
 import BusanImage7 from '@images/cities/busan/busan7.webp';
 import BusanImage8 from '@images/cities/busan/busan8.webp';
+
 import SeoulVideo1 from '@video/cities/seoul/seoul_v1.webm';
 import SeoulVideo2 from '@video/cities/seoul/seoul_v2.webm';
 import SeoulVideo3 from '@video/cities/seoul/seoul_v3.webm';
@@ -64,6 +65,46 @@ import JejuVideo5 from '@video/cities/jeju/jeju_v5.webm';
 import JejuVideo6 from '@video/cities/jeju/jeju_v6.webm';
 import JejuVideo7 from '@video/cities/jeju/jeju_v7.webm';
 
+import SeoulVideo1Img from '@video/img_for_video/seoul/seoul1.webp';
+import SeoulVideo2Img from '@video/img_for_video/seoul/seoul2.webp';
+import SeoulVideo3Img from '@video/img_for_video/seoul/seoul3.webp';
+import SeoulVideo4Img from '@video/img_for_video/seoul/seoul4.webp';
+import SeoulVideo5Img from '@video/img_for_video/seoul/seoul5.webp';
+import SeoulVideo6Img from '@video/img_for_video/seoul/seoul6.webp';
+import SeoulVideo7Img from '@video/img_for_video/seoul/seoul7.webp';
+import SeoulVideo8Img from '@video/img_for_video/seoul/seoul8.webp';
+import SeoulVideo9Img from '@video/img_for_video/seoul/seoul9.webp';
+import SeoulVideo10Img from '@video/img_for_video/seoul/seoul10.webp';
+import SeoulVideo11Img from '@video/img_for_video/seoul/seoul11.webp';
+import SeoulVideo12Img from '@video/img_for_video/seoul/seoul12.webp';
+import SeoulVideo13Img from '@video/img_for_video/seoul/seoul13.webp';
+import SeoulVideo14Img from '@video/img_for_video/seoul/seoul14.webp';
+import SeoulVideo15Img from '@video/img_for_video/seoul/seoul15.webp';
+import SeoulVideo16Img from '@video/img_for_video/seoul/seoul16.webp';
+import SeoulVideo17Img from '@video/img_for_video/seoul/seoul17.webp';
+import SeoulVideo18Img from '@video/img_for_video/seoul/seoul18.webp';
+import SeoulVideo19Img from '@video/img_for_video/seoul/seoul19.webp';
+import SeoulVideo20Img from '@video/img_for_video/seoul/seoul20.webp';
+import SeoulVideo21Img from '@video/img_for_video/seoul/seoul21.webp';
+import SeoulVideo22Img from '@video/img_for_video/seoul/seoul22.webp';
+import BusanVideo1Img from '@video/img_for_video/busan/busan1.webp';
+import BusanVideo2Img from '@video/img_for_video/busan/busan2.webp';
+import BusanVideo3Img from '@video/img_for_video/busan/busan3.webp';
+import BusanVideo4Img from '@video/img_for_video/busan/busan4.webp';
+import BusanVideo5Img from '@video/img_for_video/busan/busan5.webp';
+import BusanVideo6Img from '@video/img_for_video/busan/busan6.webp';
+import BusanVideo7Img from '@video/img_for_video/busan/busan7.webp';
+import BusanVideo8Img from '@video/img_for_video/busan/busan8.webp';
+import BusanVideo9Img from '@video/img_for_video/busan/busan9.webp';
+import BusanVideo10Img from '@video/img_for_video/busan/busan10.webp';
+import JejuVideo1Img from '@video/img_for_video/jeju/jeju1.webp';
+import JejuVideo2Img from '@video/img_for_video/jeju/jeju2.webp';
+import JejuVideo3Img from '@video/img_for_video/jeju/jeju3.webp';
+import JejuVideo4Img from '@video/img_for_video/jeju/jeju4.webp';
+import JejuVideo5Img from '@video/img_for_video/jeju/jeju5.webp';
+import JejuVideo6Img from '@video/img_for_video/jeju/jeju6.webp';
+import JejuVideo7Img from '@video/img_for_video/jeju/jeju7.webp';
+
 export const KETA_URL = 'https://www.k-eta.go.kr/portal/newapply/index.do';
 export const WOWPASS_URL = 'https://www.wowpass.io/en';
 
@@ -94,28 +135,28 @@ export const cityList = [
       { id: 15, src: SeoulImage15, alt: 'парк на горе Намсан в центре Сеула' },
     ],
     video: [
-      { id: 1, src: SeoulVideo1 },
-      { id: 2, src: SeoulVideo2 },
-      { id: 3, src: SeoulVideo3 },
-      { id: 4, src: SeoulVideo4 },
-      { id: 5, src: SeoulVideo5 },
-      { id: 6, src: SeoulVideo6 },
-      { id: 7, src: SeoulVideo7 },
-      { id: 8, src: SeoulVideo8 },
-      { id: 9, src: SeoulVideo9 },
-      { id: 10, src: SeoulVideo10 },
-      { id: 11, src: SeoulVideo11 },
-      { id: 12, src: SeoulVideo12 },
-      { id: 13, src: SeoulVideo13 },
-      { id: 14, src: SeoulVideo14 },
-      { id: 15, src: SeoulVideo15 },
-      { id: 16, src: SeoulVideo16 },
-      { id: 17, src: SeoulVideo17 },
-      { id: 18, src: SeoulVideo18 },
-      { id: 19, src: SeoulVideo19 },
-      { id: 20, src: SeoulVideo20 },
-      { id: 21, src: SeoulVideo21 },
-      { id: 22, src: SeoulVideo22 },
+      { id: 1, src: SeoulVideo1, img: SeoulVideo1Img },
+      { id: 2, src: SeoulVideo2, img: SeoulVideo2Img },
+      { id: 3, src: SeoulVideo3, img: SeoulVideo3Img },
+      { id: 4, src: SeoulVideo4, img: SeoulVideo4Img },
+      { id: 5, src: SeoulVideo5, img: SeoulVideo5Img },
+      { id: 6, src: SeoulVideo6, img: SeoulVideo6Img },
+      { id: 7, src: SeoulVideo7, img: SeoulVideo7Img },
+      { id: 8, src: SeoulVideo8, img: SeoulVideo8Img },
+      { id: 9, src: SeoulVideo9, img: SeoulVideo9Img },
+      { id: 10, src: SeoulVideo10, img: SeoulVideo10Img },
+      { id: 11, src: SeoulVideo11, img: SeoulVideo11Img },
+      { id: 12, src: SeoulVideo12, img: SeoulVideo12Img },
+      { id: 13, src: SeoulVideo13, img: SeoulVideo13Img },
+      { id: 14, src: SeoulVideo14, img: SeoulVideo14Img },
+      { id: 15, src: SeoulVideo15, img: SeoulVideo15Img },
+      { id: 16, src: SeoulVideo16, img: SeoulVideo16Img },
+      { id: 17, src: SeoulVideo17, img: SeoulVideo17Img },
+      { id: 18, src: SeoulVideo18, img: SeoulVideo18Img },
+      { id: 19, src: SeoulVideo19, img: SeoulVideo19Img },
+      { id: 20, src: SeoulVideo20, img: SeoulVideo20Img },
+      { id: 21, src: SeoulVideo21, img: SeoulVideo21Img },
+      { id: 22, src: SeoulVideo22, img: SeoulVideo22Img },
     ],
   },
   {
@@ -139,16 +180,16 @@ export const cityList = [
       { id: 8, src: BusanImage8, alt: 'бамбуковый Лес Ахопсан' },
     ],
     video: [
-      { id: 1, src: BusanVideo1 },
-      { id: 2, src: BusanVideo2 },
-      { id: 3, src: BusanVideo3 },
-      { id: 4, src: BusanVideo4 },
-      { id: 5, src: BusanVideo5 },
-      { id: 6, src: BusanVideo6 },
-      { id: 7, src: BusanVideo7 },
-      { id: 8, src: BusanVideo8 },
-      { id: 9, src: BusanVideo9 },
-      { id: 10, src: BusanVideo10 },
+      { id: 1, src: BusanVideo1, img: BusanVideo1Img },
+      { id: 2, src: BusanVideo2, img: BusanVideo2Img },
+      { id: 3, src: BusanVideo3, img: BusanVideo3Img },
+      { id: 4, src: BusanVideo4, img: BusanVideo4Img },
+      { id: 5, src: BusanVideo5, img: BusanVideo5Img },
+      { id: 6, src: BusanVideo6, img: BusanVideo6Img },
+      { id: 7, src: BusanVideo7, img: BusanVideo7Img },
+      { id: 8, src: BusanVideo8, img: BusanVideo8Img },
+      { id: 9, src: BusanVideo9, img: BusanVideo9Img },
+      { id: 10, src: BusanVideo10, img: BusanVideo10Img },
     ],
   },
   {
@@ -169,13 +210,13 @@ export const cityList = [
       },
     ],
     video: [
-      { id: 1, src: JejuVideo1 },
-      { id: 2, src: JejuVideo2 },
-      { id: 3, src: JejuVideo3 },
-      { id: 4, src: JejuVideo4 },
-      { id: 5, src: JejuVideo5 },
-      { id: 6, src: JejuVideo6 },
-      { id: 7, src: JejuVideo7 },
+      { id: 1, src: JejuVideo1, img: JejuVideo1Img },
+      { id: 2, src: JejuVideo2, img: JejuVideo2Img },
+      { id: 3, src: JejuVideo3, img: JejuVideo3Img },
+      { id: 4, src: JejuVideo4, img: JejuVideo4Img },
+      { id: 5, src: JejuVideo5, img: JejuVideo5Img },
+      { id: 6, src: JejuVideo6, img: JejuVideo6Img },
+      { id: 7, src: JejuVideo7, img: JejuVideo7Img },
     ],
   },
 ];

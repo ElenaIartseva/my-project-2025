@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { StaticImageData } from 'next/image';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { PhotoListProps } from './PhotoList.props';
+import { PhotoListProps } from '../CityPage.props';
 import { ImageModal } from '../../Modal/ImageModal/ImageModal';
 import classes from './PhotoList.module.scss';
 
