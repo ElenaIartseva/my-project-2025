@@ -18,6 +18,6 @@
 
 ## Link:
 
-https://elenaustimenko.github.io/my-project-2025/
+https://my-project-2025-ten.vercel.app/
 
 ---
