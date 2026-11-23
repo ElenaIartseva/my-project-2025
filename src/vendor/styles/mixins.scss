@@ -3,3 +3,14 @@
   font-size: $size;
   line-height: $lineHeight;
 }
+
+@mixin faded-border($edge, $color) {
+  border-#{$edge}: 1px solid $color;
+  border-image: linear-gradient(
+      to right,
+      transparent,
+      $color 20% 80%,
+      transparent
+    )
+    1;
+}

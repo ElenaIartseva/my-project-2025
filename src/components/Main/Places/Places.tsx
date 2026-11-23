@@ -1,77 +1,112 @@
 'use client';
+
 import Image from 'next/image';
 import { useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { placesList } from '@utils/constantsPlaces';
+import { pageContainerVariants } from '@utils/motionVariants';
 import classes from './Places.module.scss';
 
+const totalPlaces = placesList.length;
+const cardOffsets = [-2, -1, 0, 1, 2];
+
+const titleVariants = {
+  enter: (direction: number) => ({ y: `${direction * 100}%` }),
+  center: { y: 0 },
+  exit: (direction: number) => ({ y: `${direction * -100}%` }),
+};
+
 export const Places = () => {
-  const [visibleCount, setVisibleCount] = useState<number>(3);
+  const [{ index, direction }, setSlide] = useState({ index: 0, direction: 1 });
+  const reduceMotion = useReducedMotion();
+  const activePlace = placesList[index];
 
-  const handleShowMore = () => {
-    const step = 3;
-    const newCount = Math.min(visibleCount + step, placesList.length);
-    setVisibleCount(newCount);
+  const move = (direction: -1 | 1) => {
+    setSlide(({ index }) => ({
+      index: (index + direction + totalPlaces) % totalPlaces,
+      direction,
+    }));
   };
-
-  const handleShowLess = () => {
-    const step = 3;
-    const minCount = 3;
-    const newCount = Math.max(minCount, visibleCount - step);
-    setVisibleCount(newCount);
-  };
-
-  const canShowMore = visibleCount < placesList.length;
-  const canShowLess = visibleCount > 3;
-
-  const visiblePlaces = placesList.slice(0, visibleCount);
 
   return (
     <section className={classes.places}>
-      <h2 className={`${classes.places_title} ${classes.text_shine}`}>
+      <motion.h2
+        className={`${classes.sectionTitle} ${classes.text_shine}`}
+        initial={reduceMotion ? false : 'hidden'}
+        whileInView="visible"
+        viewport={{ amount: 0.1 }}
+        variants={pageContainerVariants}
+      >
         Интересные места, которые стоит посетить во время своего путешествия
-      </h2>
+      </motion.h2>
 
-      <div className={classes.cards_container}>
-        {visiblePlaces.map((item) => (
-          <div key={item.id} className={classes.card}>
-            <div className={classes.card_imgBGWrapper}>
-              <Image
-                className={classes.card_imgBG}
-                src={item.img}
-                alt={item.alt}
-                fill
-                sizes="(max-width: 768px) 100vw, 440px"
-              />
-            </div>
-            <div className={classes.card_infoContainer}>
-              <p className={classes.card_text}>{item.text}</p>
-            </div>
+      <div className={classes.slider} data-tone={index % 4}>
+        <div className={classes.info}>
+          <h3 className={classes.placeTitle} aria-live="polite">
+            <span className={classes.visuallyHidden}>{activePlace.title}</span>
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.span
+                aria-hidden="true"
+                className={classes.animatedTitle}
+                key={activePlace.id}
+                custom={direction}
+                variants={titleVariants}
+                initial={reduceMotion ? false : 'enter'}
+                animate="center"
+                exit={reduceMotion ? undefined : 'exit'}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {activePlace.title}
+              </motion.span>
+            </AnimatePresence>
+          </h3>
+
+          <div className={classes.controls}>
+            <button
+              type="button"
+              className={`${classes.control} ${classes.previous}`}
+              onClick={() => move(-1)}
+              aria-label="Предыдущее место"
+            />
+            <button
+              type="button"
+              className={classes.control}
+              onClick={() => move(1)}
+              aria-label="Следующее место"
+            />
+            <span className={classes.counter}>
+              {index + 1} / {totalPlaces}
+            </span>
           </div>
-        ))}
-      </div>
 
-      <div className={classes.controls}>
-        {canShowLess && (
-          <button
-            type="button"
-            className={`${classes.control_btn} ${classes.less_btn}`}
-            onClick={handleShowLess}
-            aria-label="Скрыть карточки"
-          >
-            <span className={classes.btn_arrow_up}></span>
-          </button>
-        )}
+          <p key={activePlace.id} className={classes.description}>
+            {activePlace.text}
+          </p>
+        </div>
 
-        {canShowMore && (
-          <button
-            type="button"
-            className={`${classes.control_btn} ${classes.more_btn}`}
-            onClick={handleShowMore}
-            aria-label="Показать больше карточек"
-          >
-            <span className={classes.btn_arrow_down}></span>
-          </button>
-        )}
+        <div className={classes.gallery}>
+          {cardOffsets.map((offset) => {
+            const place =
+              placesList[(index + offset + totalPlaces) % totalPlaces];
+
+            return (
+              <div
+                key={place.id}
+                className={classes.card}
+                data-offset={offset}
+                aria-hidden={offset !== 0}
+              >
+                <Image
+                  className={classes.photo}
+                  src={place.img}
+                  alt={offset === 0 ? place.alt : ''}
+                  fill
+                  sizes="(max-width: 768px) 70vw, (max-width: 1024px) 42vw, 40vw"
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

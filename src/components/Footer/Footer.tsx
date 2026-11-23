@@ -38,7 +38,7 @@ export const Footer = () => {
         </div>
         <div className={classes.footer_lastContainer}>
           <p className={classes.footer_text}>
-            © {currentYear}. Design & Develop by Iartseva Elena
+            © {currentYear}. Design & Develop by Elena Iartseva
           </p>
         </div>
       </div>

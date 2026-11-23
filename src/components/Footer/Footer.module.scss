@@ -1,5 +1,5 @@
-@use '../../vendor/styles/mixins.scss' as mixins;
-@use '../../vendor/styles/animation.scss';
+@use '@vendor/styles/mixins.scss' as mixins;
+@use '@vendor/styles/animation.scss';
 
 .footer {
   width: 100%;
@@ -9,11 +9,15 @@
   z-index: 40;
 }
 
+.footer_wrapper,
+.footer_lastContainer {
+  @include mixins.faded-border(top, var(--border-footer-color));
+}
+
 .footer_wrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
-  border-top: var(--border-footer);
 }
 
 .footer_firstContainer {
@@ -187,7 +191,6 @@
   align-items: center;
   width: 100%;
   min-height: 92px;
-  border-top: var(--border-footer);
 
   @media (max-width: 1240px) {
     flex-direction: column;

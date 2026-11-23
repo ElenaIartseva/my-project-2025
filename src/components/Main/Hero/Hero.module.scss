@@ -1,7 +1,7 @@
-@use '../../../vendor/styles/mixins.scss' as mixins;
-@use '../../../vendor/styles/animation.scss';
+@use '@vendor/styles/mixins.scss' as mixins;
+@use '@vendor/styles/animation.scss';
 
-.firstSection {
+.hero {
   position: relative;
   height: 100vh;
   width: 100%;
@@ -12,7 +12,7 @@
   margin-bottom: 60px;
 }
 
-.firstSection_matrixContainer {
+.hero_matrixContainer {
   position: absolute;
   top: 0;
   left: 0;
@@ -66,7 +66,7 @@
   }
 }
 
-.firstSection_contentWrapper {
+.hero_contentWrapper {
   position: relative;
   z-index: 1;
   max-width: 1100px;
@@ -82,14 +82,14 @@
   }
 }
 
-.firstSection_title {
-  color: var(--text-color-white);
+.hero_title {
+  color: #ebe6f2;
   text-shadow: 0 0 10px var(--bg-color-purple);
   @include mixins.font(600, var(--font-size-60), 1.3);
   margin-bottom: 1.5rem;
 }
 
-.firstSection_contentBox {
+.hero_contentBox {
   background: rgba(0, 0, 0, 0.7);
   padding: 2.6rem 2rem;
   backdrop-filter: blur(5px);
@@ -97,7 +97,7 @@
   border-radius: var(--border-radius10);
 }
 
-.firstSection_contentBoxText {
+.hero_contentBoxText {
   color: var(--text-color-grey);
   @include mixins.font(400, var(--font-size-18), 1.3);
 }

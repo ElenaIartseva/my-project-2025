@@ -5,7 +5,7 @@ import {
   compactContainerVariants,
   slideUpItemVariants,
 } from '@utils/motionVariants';
-import classes from './FirstSection.module.scss';
+import classes from './Hero.module.scss';
 
 interface MatrixColumn {
   id: number;
@@ -13,7 +13,7 @@ interface MatrixColumn {
   animationDuration: string;
 }
 
-export const FirstSection = () => {
+export const Hero = () => {
   const [matrixColumns, setMatrixColumns] = useState<MatrixColumn[]>([]);
 
   const createMatrix = useCallback(() => {
@@ -35,8 +35,8 @@ export const FirstSection = () => {
   }, [createMatrix]);
 
   return (
-    <section className={classes.firstSection}>
-      <div className={classes.firstSection_matrixContainer}>
+    <section className={classes.hero}>
+      <div className={classes.hero_matrixContainer}>
         {matrixColumns.map((column) => (
           <div
             key={column.id}
@@ -53,22 +53,22 @@ export const FirstSection = () => {
         ))}
       </div>
       <motion.div
-        className={classes.firstSection_contentWrapper}
+        className={classes.hero_contentWrapper}
         initial="hidden"
         whileInView="visible"
         viewport={{ amount: 0.1 }}
         variants={compactContainerVariants}
       >
-        <h1 className={classes.firstSection_title}>
+        <h1 className={classes.hero_title}>
           Информация для путешествия в Республику Корея
         </h1>
         <motion.div
-          className={classes.firstSection_contentBox}
+          className={classes.hero_contentBox}
           variants={slideUpItemVariants}
           transition={{ type: 'tween', duration: 0.2 }}
           whileHover={{ x: -6 }}
         >
-          <p className={classes.firstSection_contentBoxText}>
+          <p className={classes.hero_contentBoxText}>
             На нашем сайте вы найдёте полезную информацию для поездки в
             Республику Корея, а может просто получите немного вдохновения для
             своего следующего путешествия в эту прекрасную страну

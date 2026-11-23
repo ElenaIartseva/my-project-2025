@@ -1,5 +1,5 @@
-@use '../../vendor/styles/mixins.scss' as mixins;
-@use '../../vendor/styles/animation.scss';
+@use '@vendor/styles/mixins.scss' as mixins;
+@use '@vendor/styles/animation.scss';
 
 .header {
   width: 100%;
@@ -17,6 +17,11 @@
   }
 }
 
+.header_sectionFirst,
+.header_sectionSecond {
+  @include mixins.faded-border(bottom, var(--border-header-color));
+}
+
 .header_sectionFirst {
   display: flex;
   flex-direction: row;
@@ -24,7 +29,6 @@
   align-items: center;
   height: 100px;
   width: 100%;
-  border-bottom: var(--border-header);
 }
 
 .header_containerForLogo {
@@ -44,7 +48,6 @@
   justify-content: space-between;
   height: 100px;
   width: 100%;
-  border-bottom: var(--border-header);
 }
 
 .header_sectionSecondFixed {
