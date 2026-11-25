@@ -1,8 +1,7 @@
+import type { CityImage } from '@components/CityPage/CityPage.props';
+
 export interface ImageModalProps {
   isOpen: boolean;
   onClose: () => void;
-  image: {
-    src: string;
-    alt: string;
-  } | null;
+  image: Pick<CityImage, 'src' | 'alt' | 'blurDataURL'> | null;
 }

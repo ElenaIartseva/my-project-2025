@@ -19,6 +19,8 @@ export const ImageModal: React.FC<ImageModalProps> = ({
             src={image.src}
             alt={image.alt}
             fill
+            placeholder={image.blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={image.blurDataURL}
             sizes="(max-width: 1024px) 80vw, 60vw"
             style={{ objectFit: 'contain' }}
             className={classes.modalImage}

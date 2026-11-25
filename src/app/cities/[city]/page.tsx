@@ -2,6 +2,7 @@ import { CityPage } from '@components/CityPage/CityPage';
 import { cityList } from '@utils/constantsCity';
 import classes from '@app/App.module.scss';
 import { notFound } from 'next/navigation';
+import { withMediaPreviews } from './mediaPreviews';
 
 interface CityRouteProps {
   params: Promise<{
@@ -26,7 +27,7 @@ export default async function City({ params }: CityRouteProps) {
   return (
     <>
       <div className={classes.app}>
-        <CityPage city={cityData} />
+        <CityPage city={await withMediaPreviews(cityData)} />
       </div>
     </>
   );

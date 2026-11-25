@@ -2,12 +2,14 @@ export interface CityImage {
   id: number;
   src: string;
   alt: string;
+  blurDataURL?: string;
 }
 
 export interface CityVideo {
   id: number;
   src: string;
   img: string;
+  blurDataURL?: string;
 }
 
 export interface City {

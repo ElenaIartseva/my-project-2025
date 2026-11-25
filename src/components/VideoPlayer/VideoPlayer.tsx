@@ -3,7 +3,13 @@ import ReactPlayer from 'react-player';
 import classes from './VideoPlayer.module.scss';
 import { useState } from 'react';
 
-export const VideoPlayer = ({ url }: { url: string }) => {
+export const VideoPlayer = ({
+  url,
+  poster,
+}: {
+  url: string;
+  poster: string;
+}) => {
   const [isReady, setIsReady] = useState(false);
 
   return (
@@ -20,6 +26,7 @@ export const VideoPlayer = ({ url }: { url: string }) => {
         config={{
           file: {
             attributes: {
+              poster,
               controlsList: 'nodownload',
               disablePictureInPicture: true,
               playsInline: true,

@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Modal } from '@components/Modal/Modal';
 import { VideoPlayer } from '@components/VideoPlayer/VideoPlayer';
 import { mediaGalleryVariants } from '@utils/motionVariants';
-import type { VideoListProps } from '../CityPage.props';
+import type { CityVideo, VideoListProps } from '../CityPage.props';
 import classes from './VideoList.module.scss';
 
 export const VideoList: React.FC<VideoListProps> = ({ city }) => {
@@ -14,7 +14,7 @@ export const VideoList: React.FC<VideoListProps> = ({ city }) => {
   const isInView = useInView(carouselRef, { amount: 0.25 });
   const reduceMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
-  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<CityVideo | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [hasFocus, setHasFocus] = useState(false);
@@ -83,12 +83,14 @@ export const VideoList: React.FC<VideoListProps> = ({ city }) => {
                 disabled={depth !== 0}
                 aria-hidden={depth !== 0 || undefined}
                 aria-label={`Открыть видео ${video.id}`}
-                onClick={() => setSelectedVideo(video.src)}
+                onClick={() => setSelectedVideo(video)}
               >
                 <Image
                   src={video.img}
                   alt=""
                   fill
+                  placeholder={video.blurDataURL ? 'blur' : 'empty'}
+                  blurDataURL={video.blurDataURL}
                   sizes="(max-width: 760px) 75vw, 560px"
                   className={classes.posterImage}
                 />
@@ -140,7 +142,9 @@ export const VideoList: React.FC<VideoListProps> = ({ city }) => {
         isOpen={selectedVideo !== null}
         onClose={() => setSelectedVideo(null)}
       >
-        {selectedVideo && <VideoPlayer url={selectedVideo} />}
+        {selectedVideo && (
+          <VideoPlayer url={selectedVideo.src} poster={selectedVideo.img} />
+        )}
       </Modal>
     </>
   );

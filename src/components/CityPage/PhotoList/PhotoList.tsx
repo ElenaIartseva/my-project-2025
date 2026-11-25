@@ -83,6 +83,9 @@ export const PhotoList: React.FC<PhotoListProps> = ({ city }) => {
                   src={image.src}
                   alt=""
                   fill
+                  loading={isActive ? 'eager' : 'lazy'}
+                  placeholder={image.blurDataURL ? 'blur' : 'empty'}
+                  blurDataURL={image.blurDataURL}
                   sizes="(max-width: 350px) 112px, (max-width: 850px) 32vw, 272px"
                   className={classes.photo}
                 />
