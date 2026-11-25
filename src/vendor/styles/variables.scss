@@ -1,7 +1,26 @@
 :root {
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-80: 80px;
+  --page-gutter: clamp(var(--space-24), 6.5vw, 96px);
+  --section-gap: var(--space-80);
+  --heading-gap: var(--space-40);
+  --paragraph-gap: var(--space-24);
+  --group-gap: var(--space-32);
+  --panel-padding: var(--space-32);
+  --media-gap: var(--space-24);
+  --brand-gap: var(--space-16);
+
   --bg-color-main: #263449;
   --bg-color-main-dark: #1e293a;
   --bg-color-purple: #565dff;
+  --color-control-accent: #6a70ff;
+  --bg-color-purple-dark: #0a12b0;
   --bg-color-yellow: #dff749;
   --bg-color-grey: #414141;
   --bg-color-white: #EBE6F2;
@@ -31,54 +50,41 @@
   --border-black: 3px solid #000000;
   --transition-duration: 0.3s;
   --transition-timing-fn: ease-in-out;
-  --font-size-14: 14px;
-  --font-size-18: 18px;
-  --font-size-24: 1.2rem;
-  --font-size-35: 1.6rem;
-  --font-size-40: 1.8rem;
-  --font-size-50: 2.4rem;
-  --font-size-60: 3.2rem;
+  --font-hero-size: clamp(2.875rem, 3.8vw, 3.25rem);
+  --font-hero-weight: 600;
+  --font-hero-line-height: 1.2;
+  --font-section-size: 2.25rem;
+  --font-section-weight: 600;
+  --font-section-line-height: 1.25;
+  --font-card-size: 1.75rem;
+  --font-card-weight: 600;
+  --font-card-line-height: 1.25;
+  --font-dialog-size: 1.5rem;
+  --font-dialog-weight: 600;
+  --font-dialog-line-height: 1.25;
+  --font-body-size: 1.125rem;
+  --font-body-weight: 400;
+  --font-body-line-height: 1.5;
+  --font-control-size: 1rem;
+  --font-control-weight: 500;
+  --font-control-line-height: 1.4;
+  --font-caption-size: 0.875rem;
+  --font-caption-weight: 400;
+  --font-caption-line-height: 1.4;
 
-  @media (max-width: 1661px) {
-    --font-size-24: 1rem;
-    --font-size-40: 1.5rem;
-    --font-size-50: 2.4rem;
-    --font-size-60: 2.8rem;
-  }
-
-  @media (max-width: 1430px) {
-    --font-size-35: 1.3rem;
-    --font-size-40: 1.4rem;
-    --font-size-50: 2rem;
-    --font-size-60: 2.6rem;
-  }
-
-  @media (max-width: 1194px) {
-    --font-size-50: 1.8rem;
-    --font-size-60: 2.3rem;
-  }
-
-  @media (max-width: 1067px) {
-    --font-size-60: 2rem;
-  }
-
-  @media (max-width: 846px) {
-    --font-size-50: 1.6rem;
-    --font-size-60: 2rem;
-  }
-
-  @media (max-width: 648px) {
-    --font-size-60: 1.9rem;
-  }
-
-  @media (max-width: 540px) {
-    --font-size-40: 1.4rem;
-    --font-size-50: 1.5rem;
-    --font-size-60: 1.8rem;
-  }
-
-  @media (max-width: 440px) {
-    --font-size-50: 1.3rem;
-    --font-size-60: 1.6rem;
+  @media (max-width: 768px) {
+    --page-gutter: var(--space-24);
+    --section-gap: var(--space-48);
+    --heading-gap: var(--space-32);
+    --paragraph-gap: var(--space-16);
+    --group-gap: var(--space-24);
+    --panel-padding: var(--space-24);
+    --media-gap: var(--space-16);
+    --brand-gap: var(--space-8);
+    --font-hero-size: clamp(1.875rem, 8.25vw, 2rem);
+    --font-section-size: 1.5rem;
+    --font-card-size: 1.25rem;
+    --font-dialog-size: 1.25rem;
+    --font-body-size: 1rem;
   }
 }

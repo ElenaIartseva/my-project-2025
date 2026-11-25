@@ -18,12 +18,11 @@ export const MobileNav = ({ onClose, onLinkClick }: MobileNavProps) => (
     >
       <Close className={classes.header_menuOpen} />
     </button>
-    <div className={classes.btn_animationLine}></div>
     {[...cityLinks, ...externalLinks].map((link) => (
       <HeaderLink
         key={link.href}
         {...link}
-        className={`${classes.btn_animationLine} ${classes.header_linkOpen}`}
+        className={classes.btn_animationLine}
         onClick={onLinkClick}
       />
     ))}

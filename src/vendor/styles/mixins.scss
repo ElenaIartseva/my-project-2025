@@ -1,7 +1,7 @@
-@mixin font($weight, $size, $lineHeight) {
-  font-weight: $weight;
-  font-size: $size;
-  line-height: $lineHeight;
+@mixin font($role) {
+  font-weight: var(--font-#{$role}-weight);
+  font-size: var(--font-#{$role}-size);
+  line-height: var(--font-#{$role}-line-height);
 }
 
 @mixin faded-border($edge, $color) {

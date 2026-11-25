@@ -36,7 +36,7 @@ export const DesktopNav = ({
           <HeaderLink
             key={link.href}
             {...link}
-            className={`${classes.header_link} ${classes.header_linkFixed} ${classes.btn_animationLine}`}
+            className={`${classes.header_link} ${classes.btn_animationLine}`}
             onClick={onLinkClick}
           />
         ))}

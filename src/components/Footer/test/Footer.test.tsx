@@ -33,17 +33,14 @@ describe('Footer', () => {
     expect(telegramLink).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
-  it('renders contact links without opening a new tab', () => {
-    render(<Footer />);
+  it('renders email without a phone link or a new tab', () => {
+    const { container } = render(<Footer />);
 
-    const phoneLink = screen.getByRole('link', { name: /8 962 878 64 00/ });
     const emailLink = screen.getByRole('link', {
       name: /elena\.iartseva64@gmail\.com/,
     });
 
-    expect(phoneLink).toHaveAttribute('href', 'tel:89628786400');
-    expect(phoneLink).not.toHaveAttribute('target');
-    expect(phoneLink).not.toHaveAttribute('rel');
+    expect(container.querySelector('a[href^="tel:"]')).not.toBeInTheDocument();
 
     expect(emailLink).toHaveAttribute(
       'href',

@@ -4,35 +4,40 @@
 .places {
   width: 100%;
   max-width: 1400px;
-  margin-bottom: 80px;
 }
 
 .sectionTitle {
   max-width: 840px;
-  margin: 0 auto 2.5rem;
+  margin: 0 auto var(--heading-gap);
   color: var(--text-color-white);
   text-align: center;
-  @include mixins.font(600, var(--font-size-50), 1.3);
+  @include mixins.font(section);
 }
 
 .slider {
   --places-accent: #3d44e0;
+  --places-background: var(--bg-color-main-dark);
 
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   align-items: center;
   overflow: hidden;
   border-radius: var(--border-radius30);
-  background-color: var(--bg-color-main-dark);
+
+  background-color: color-mix(
+    in srgb,
+    var(--places-background) 10%,
+    transparent
+  );
   background-image: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--bg-color-purple) 14%, transparent),
+    color-mix(in srgb, var(--bg-color-purple) 10%, transparent),
     transparent 75%
   );
   transition: background-color 650ms ease;
 
   &[data-tone='1'] {
-    background-color: color-mix(
+    --places-background: color-mix(
       in srgb,
       var(--bg-color-main-dark),
       var(--bg-color-purple) 20%
@@ -40,7 +45,7 @@
   }
 
   &[data-tone='2'] {
-    background-color: color-mix(
+    --places-background: color-mix(
       in srgb,
       var(--bg-color-card),
       var(--places-accent) 45%
@@ -48,16 +53,15 @@
   }
 
   &[data-tone='3'] {
-    background-color: var(--bg-color-grey);
+    --places-background: var(--bg-color-grey);
   }
 }
 
 .info {
   display: grid;
   align-self: start;
-  gap: 20px;
-  padding: clamp(24px, 4vw, 64px);
-  padding-top: clamp(32px, 6vw, 96px);
+  gap: var(--space-16);
+  padding: var(--panel-padding);
   color: var(--text-color-white);
 }
 
@@ -65,8 +69,8 @@
   display: grid;
   min-block-size: 2lh;
   overflow: hidden;
-  margin: 0;
-  @include mixins.font(600, calc(var(--font-size-50) * 0.85), 1.15);
+  margin-block-end: var(--space-8);
+  @include mixins.font(card);
 }
 
 .animatedTitle {
@@ -85,19 +89,31 @@
   white-space: nowrap;
 }
 
+.descriptions {
+  display: grid;
+}
+
 .description {
+  grid-area: 1 / 1;
+  align-self: start;
+  visibility: hidden;
   margin: 0;
   color: var(--text-color-grey);
-  @include mixins.font(400, var(--font-size-18), 1.5);
-  animation: fadeIn 450ms ease both;
+  @include mixins.font(body);
+
+  &[data-active='true'] {
+    visibility: visible;
+
+    @media (prefers-reduced-motion: no-preference) {
+      animation: fadeIn 450ms ease both;
+    }
+  }
 }
 
 .controls {
-  --places-control-accent: #6a70ff;
-
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-8);
 }
 
 .control {
@@ -123,7 +139,7 @@
   }
 
   &:hover {
-    color: var(--places-control-accent);
+    color: var(--color-control-accent);
   }
 
   &:focus-visible {
@@ -137,12 +153,11 @@
 }
 
 .counter {
-  margin-left: 6px;
-  padding: 3px 8px;
+  padding: var(--space-4) var(--space-8);
   border-radius: var(--border-radius500);
   color: var(--text-color-black);
-  background-color: var(--places-control-accent);
-  font-size: var(--font-size-14);
+  background-color: var(--color-control-accent);
+  @include mixins.font(caption);
   font-variant-numeric: tabular-nums;
 }
 
@@ -215,14 +230,6 @@
 }
 
 @media (max-width: 768px) {
-  .places {
-    margin-bottom: 48px;
-  }
-
-  .sectionTitle {
-    margin-bottom: 1.5rem;
-  }
-
   .slider {
     grid-template-columns: minmax(0, 1fr);
     border-radius: var(--border-radius20);
@@ -237,11 +244,6 @@
   .card {
     width: 66%;
   }
-
-  .info {
-    gap: 16px;
-    padding-top: 24px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -255,9 +257,5 @@
   .card,
   .control {
     transition: none;
-  }
-
-  .description {
-    animation: none;
   }
 }

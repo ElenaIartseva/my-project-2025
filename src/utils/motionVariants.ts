@@ -34,7 +34,7 @@ export const slideUpItemVariants: Variants = {
   },
 };
 
-export const photoItemVariants: Variants = {
+export const mediaGalleryVariants: Variants = {
   hidden: { y: 50, opacity: 0 },
   visible: {
     y: 0,
@@ -43,18 +43,6 @@ export const photoItemVariants: Variants = {
       type: 'spring',
       stiffness: 100,
       damping: 12,
-    },
-  },
-};
-
-export const videoItemVariants: Variants = {
-  hidden: { x: 100, opacity: 0 },
-  visible: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      type: 'spring',
-      stiffness: 100,
     },
   },
 };

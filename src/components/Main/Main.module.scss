@@ -6,13 +6,12 @@
   flex-direction: column;
   justify-items: center;
   align-items: center;
-  padding: 0 100px;
+  padding-inline: var(--page-gutter);
   margin: 0;
   flex: 1;
 }
 
-@media (max-width: 1024px) {
-  .main {
-    padding: 0 20px;
-  }
+.main > section + section,
+.main > section + footer {
+  margin-block-start: var(--section-gap);
 }

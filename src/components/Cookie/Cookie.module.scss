@@ -2,106 +2,73 @@
 
 .modalOverlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: var(--space-16);
   z-index: 999;
 }
 
 .modalWindow {
-  background-color: var(--bg-color-main-dark);
-  border: var(--border-black);
-  border-radius: var(--border-radius50);
-  width: 80%;
-  min-height: 210px;
+  background-color: color-mix(in srgb, #17171e 92%, transparent);
+  border: 1px solid var(--border-header-color);
+  border-radius: var(--border-radius20);
+  width: min(100%, 400px);
+  max-height: 100%;
+  overflow: auto;
   display: flex;
   flex-direction: column;
-  position: fixed;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  transition: all 0.3s linear;
-  bottom: 20px;
-  margin: 0;
-  z-index: 100;
+  gap: var(--space-8);
   color: var(--text-color-white);
-  padding: 30px;
-
-  @media (max-width: 768px) {
-    width: 90%;
-  }
+  padding: var(--space-16);
 }
 
 .cookie_title {
-  align-items: flex-start;
-  color: var(--text-color-grey);
-  @include mixins.font(400, var(--font-size-40), 1.04);
-  margin-bottom: 10px;
+  @include mixins.font(dialog);
 }
 
 .cookie_text {
-  color: var(--text-color-grey);
-  @include mixins.font(400, var(--font-size-24), 1.6);
-  margin-bottom: 20px;
-}
-
-.btnAccept {
-  max-width: 50%;
-  padding: 16px;
-  border-radius: var(--border-radius500);
-  background-color: var(--bg-color-yellow);
-  @include mixins.font(400, var(--font-size-24), 1.6);
-  color: var(--text-color-black);
-  min-width: 190px;
-
-  &:hover {
-    cursor: pointer;
-    background-color: var(--bg-color-purple);
-  }
-
-  &:focus {
-    transform: scale(0.97);
-  }
-
-  &:active {
-    transform: scale(0.97);
-  }
-
-  @media (max-width: 1280px) {
-    max-width: 80%;
-  }
-}
-
-.btnLink {
-  max-width: 50%;
-  padding: 16px;
-  margin-bottom: 10px;
-  background-color: var(--bg-color-grey);
-  border-radius: var(--border-radius500);
-  @include mixins.font(400, var(--font-size-24), 1.6);
   color: var(--text-color-light-grey);
+  @include mixins.font(body);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.action {
+  display: grid;
+  place-items: center;
+  flex: 1 1 auto;
+  min-height: 44px;
+  padding: var(--space-8);
+  border: 1px solid currentColor;
+  border-radius: var(--border-radius500);
+  background-color: transparent;
+  color: var(--text-color-white);
+  cursor: pointer;
+  font-family: inherit;
+  @include mixins.font(control);
   text-align: center;
-  min-width: 190px;
 
   &:hover {
-    cursor: pointer;
-    background-color: var(--bg-color-purple);
+    background-color: color-mix(
+      in srgb,
+      var(--bg-color-purple) 75%,
+      var(--bg-color-main-dark)
+    );
   }
 
-  &:focus {
-    transform: scale(0.97);
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
   }
 
   &:active {
     transform: scale(0.97);
-  }
-
-  @media (max-width: 1280px) {
-    max-width: 80%;
   }
 }

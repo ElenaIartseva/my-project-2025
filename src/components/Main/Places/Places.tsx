@@ -79,9 +79,18 @@ export const Places = () => {
             </span>
           </div>
 
-          <p key={activePlace.id} className={classes.description}>
-            {activePlace.text}
-          </p>
+          <div className={classes.descriptions}>
+            {placesList.map((place) => (
+              <p
+                key={place.id}
+                className={classes.description}
+                data-active={place.id === activePlace.id}
+                aria-hidden={place.id !== activePlace.id}
+              >
+                {place.text}
+              </p>
+            ))}
+          </div>
         </div>
 
         <div className={classes.gallery}>

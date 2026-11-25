@@ -12,17 +12,12 @@
   align-items: center;
   justify-items: center;
   font-family: var(--font-onest);
-  transition: all var(--transition-duration) var(--transition-timing-fn);
-  background: var(--bg-color-main);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  padding: 0 100px;
-
-  @media (max-width: 1024px) {
-    padding: 0 20px;
-  }
+  padding-inline: var(--page-gutter);
+  row-gap: var(--section-gap);
 }
 
 .cityPage > :first-child {
@@ -37,7 +32,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-bottom: 40px;
   width: 40%;
   height: 100%;
 
@@ -56,12 +50,28 @@
 
 .cityAbout_title {
   color: var(--text-color-white);
-  @include mixins.font(600, var(--font-size-50), 1.3);
-  margin: 2.5rem 0;
+  @include mixins.font(section);
+  margin-block-end: var(--heading-gap);
 }
 
 .cityAbout_text {
   color: var(--text-color-grey);
-  @include mixins.font(400, var(--font-size-18), 1.3);
-  margin-bottom: 2rem;
+  @include mixins.font(body);
+}
+
+.cityAbout_text + .cityAbout_text {
+  margin-block-start: var(--paragraph-gap);
+}
+
+.mediaSection {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-16);
+  width: 100%;
+  text-align: center;
+}
+
+.mediaCaption {
+  color: var(--text-color-grey);
+  @include mixins.font(caption);
 }

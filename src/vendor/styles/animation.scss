@@ -11,10 +11,9 @@
   --border-right: 0;
   --text-stroke-color: var(--text-color-light-grey);
   --animation-color: var(--text-color-blue);
-  --fs-size: var(--font-size-24);
   letter-spacing: 2px;
   text-decoration: none;
-  font-size: var(--fs-size);
+  @include mixins.font(control);
   position: relative;
   color: transparent;
   -webkit-text-stroke: 1px var(--text-stroke-color);

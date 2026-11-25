@@ -1,5 +1,5 @@
 'use client';
-import { CSSProperties, useCallback, useEffect, useState } from 'react';
+import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   compactContainerVariants,
@@ -14,6 +14,7 @@ interface MatrixColumn {
 }
 
 export const Hero = () => {
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const [matrixColumns, setMatrixColumns] = useState<MatrixColumn[]>([]);
 
   const createMatrix = useCallback(() => {
@@ -33,6 +34,35 @@ export const Hero = () => {
     window.addEventListener('resize', createMatrix);
     return () => window.removeEventListener('resize', createMatrix);
   }, [createMatrix]);
+
+  useEffect(() => {
+    const title = titleRef.current;
+    const wrapper = title?.parentElement;
+    if (!title || !wrapper) return;
+
+    const range = document.createRange();
+    range.selectNodeContents(title);
+    const updateTitleWidth = () => {
+      const lineWidths = Array.from(
+        range.getClientRects(),
+        (line) => line.width,
+      );
+      const width = Math.max(0, ...lineWidths);
+      if (width > 0) {
+        wrapper.style.setProperty('--hero-title-width', `${width}px`);
+      }
+    };
+
+    updateTitleWidth();
+    const observer = new ResizeObserver(updateTitleWidth);
+    observer.observe(title);
+    document.fonts.addEventListener('loadingdone', updateTitleWidth);
+
+    return () => {
+      observer.disconnect();
+      document.fonts.removeEventListener('loadingdone', updateTitleWidth);
+    };
+  }, []);
 
   return (
     <section className={classes.hero}>
@@ -59,8 +89,8 @@ export const Hero = () => {
         viewport={{ amount: 0.1 }}
         variants={compactContainerVariants}
       >
-        <h1 className={classes.hero_title}>
-          Информация для путешествия в Республику Корея
+        <h1 ref={titleRef} className={classes.hero_title}>
+          {'Информация для путешествия\nв Республику Корея'}
         </h1>
         <motion.div
           className={classes.hero_contentBox}

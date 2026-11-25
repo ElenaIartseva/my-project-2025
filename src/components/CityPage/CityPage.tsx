@@ -63,20 +63,20 @@ export const CityPage = ({ city }: CityPageProps) => {
         </motion.p>
       </motion.div>
       {hasImages && (
-        <>
-          <p className={`${classes.cityAbout_text} ${classes.text_shine}`}>
+        <div className={classes.mediaSection}>
+          <p className={`${classes.mediaCaption} ${classes.text_shine}`}>
             кликни по фото, чтобы посмотреть подробнее
           </p>
           <PhotoList city={city} />
-        </>
+        </div>
       )}
       {hasVideos && (
-        <>
-          <p className={`${classes.cityAbout_text} ${classes.text_shine}`}>
+        <div className={classes.mediaSection}>
+          <p className={`${classes.mediaCaption} ${classes.text_shine}`}>
             кликни по видео, чтобы начать просмотр
           </p>
           <VideoList city={city} />
-        </>
+        </div>
       )}
       <Footer />
     </section>

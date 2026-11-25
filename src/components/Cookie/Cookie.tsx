@@ -23,27 +23,29 @@ export const Cookie = () => {
 
   return (
     <div className={classes.modalOverlay}>
-      <div className={`${classes.container} ${classes.modalWindow}`}>
+      <div className={classes.modalWindow}>
         <h2 className={classes.cookie_title}>Cookie</h2>
         <p className={classes.cookie_text}>
           Мы используем файлы cookies для улучшения пользовательского опыта и
           сбора статистики
         </p>
-        <a
-          className={classes.btnLink}
-          href="/legal/privacy-policy"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Узнать больше
-        </a>
-        <button
-          type="button"
-          className={classes.btnAccept}
-          onClick={acceptCookie}
-        >
-          Принять
-        </button>
+        <div className={classes.actions}>
+          <a
+            className={classes.action}
+            href="/legal/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Узнать больше
+          </a>
+          <button
+            type="button"
+            className={classes.action}
+            onClick={acceptCookie}
+          >
+            Принять
+          </button>
+        </div>
       </div>
     </div>
   );

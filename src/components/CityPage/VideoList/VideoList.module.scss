@@ -2,104 +2,175 @@
 @use '@vendor/styles/animation.scss';
 
 .videoList {
-  width: 100%;
-  max-width: 1920px;
-  padding: 20px 0;
-}
-
-.videoList_container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 360px));
-  gap: 20px;
-  padding: 0 20px;
-  justify-content: center;
+  gap: var(--space-16);
+  width: 100%;
+  max-width: 880px;
 }
 
-.videoList_card {
-  position: relative;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 360px;
+.stage {
+  display: grid;
+  justify-items: center;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  border: var(--border-video);
+  padding-block: var(--space-24);
+}
 
-  &:hover {
-    transform: translateY(-5px);
+.deck {
+  position: relative;
+  width: min(75%, 560px);
+  aspect-ratio: 4 / 3;
+  perspective: 1000px;
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  z-index: calc(4 - var(--video-depth));
+  overflow: hidden;
+  border-radius: var(--border-radius10);
+  background-color: var(--bg-color-card);
+  box-shadow: 0 8px 18px rgb(0 0 0 / 35%);
+  transform: translateX(calc(var(--video-depth) * 6%)) rotateY(-12deg)
+    scale(calc(1 - var(--video-depth) * 0.045));
+  opacity: calc(1 - var(--video-depth) * 0.16);
+  transition:
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 620ms ease;
+
+  &[data-depth='0'] {
+    cursor: pointer;
   }
-}
 
-.videoWrapper {
-  position: relative;
-  width: 100%;
-  height: 260px;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.videoList_video {
-  position: relative;
-  width: 100%;
-  max-width: 360px;
-  height: 260px;
-  object-fit: cover;
-  z-index: 2;
-
-  &.videoHidden {
+  &[data-depth='-1'] {
+    transform: translateX(-30%) rotateY(-30deg) scale(0.9);
     opacity: 0;
-    height: 0;
-  }
-}
-
-.posterContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.videoPoster {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.btn_play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  z-index: 3;
-
-  &::after {
-    content: '';
-    width: 0;
-    height: 0;
-    border-top: 12px solid transparent;
-    border-bottom: 12px solid transparent;
-    border-left: 20px solid #333;
   }
 
-  &:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: translate(-50%, -50%) scale(1.1);
+  &:disabled {
+    pointer-events: none;
   }
 }
 
 .posterImage {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
+}
+
+.play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: auto;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: var(--text-color-white);
+  background-color: rgb(0 0 0 / 45%);
+  transition:
+    scale var(--transition-duration),
+    color var(--transition-duration);
+
+  &::before {
+    content: '';
+    margin-inline-start: var(--space-4);
+    border-block: 8px solid transparent;
+    border-inline-start: 12px solid currentColor;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -25%;
+    border: 2px solid color-mix(in srgb, currentColor 75%, transparent);
+    border-radius: 50%;
+    animation: pulsate 2s ease-out infinite;
+  }
+
+  .card:hover & {
+    color: var(--color-control-accent);
+    scale: 1.1;
+  }
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.arrow,
+.autoplay {
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  border: 1px solid currentColor;
+  border-radius: var(--border-radius500);
+  background: transparent;
+  color: var(--text-color-white);
+  cursor: pointer;
+  transition: color var(--transition-duration);
+
+  &:hover {
+    color: var(--color-control-accent);
+  }
+}
+
+.arrow {
+  width: 44px;
+
+  &::before {
+    content: '';
+    width: 9px;
+    height: 9px;
+    border-block-start: 2px solid;
+    border-inline-end: 2px solid;
+    rotate: 45deg;
+  }
+}
+
+.previous::before {
+  rotate: -135deg;
+}
+
+.autoplay {
+  padding-inline: var(--space-16);
+  font-family: inherit;
+  @include mixins.font(caption);
+}
+
+.counter {
+  min-width: 6ch;
+  color: var(--text-color-white);
+  font-variant-numeric: tabular-nums;
+  @include mixins.font(caption);
+}
+
+.card,
+.arrow,
+.autoplay {
+  &:focus-visible {
+    outline: 2px solid var(--text-color-white);
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .arrow,
+  .autoplay,
+  .play {
+    transition: none;
+  }
+
+  .card:hover .play {
+    scale: 1;
+  }
+
+  .play::after {
+    animation: none;
+    content: none;
+  }
 }
