@@ -80,17 +80,18 @@ describe('Header', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('closes the mobile menu with Escape', () => {
+  it('moves focus into the mobile menu and restores it on Escape', () => {
     render(<Header />);
 
     fireEvent.click(screen.getByRole('button', { name: /Открыть меню/i }));
 
-    expect(screen.getByRole('button', { name: /Закрыть меню/i })).toBeVisible();
+    expect(screen.getByRole('button', { name: /Закрыть меню/i })).toHaveFocus();
 
     fireEvent.keyDown(window, { key: 'Escape' });
 
     expect(
       screen.queryByRole('button', { name: /Закрыть меню/i }),
     ).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Открыть меню/i })).toHaveFocus();
   });
 });

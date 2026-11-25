@@ -1,16 +1,18 @@
+import type { Ref } from 'react';
 import classes from '../Header.module.scss';
 import Close from '@images/btn/burger_close_white.svg';
 import { cityLinks, externalLinks } from '../Header.data';
 import { HeaderLink } from '../HeaderLink/HeaderLink';
 
 interface MobileNavProps {
+  closeButtonRef: Ref<HTMLButtonElement>;
   onClose: () => void;
-  onLinkClick: () => void;
 }
 
-export const MobileNav = ({ onClose, onLinkClick }: MobileNavProps) => (
+export const MobileNav = ({ closeButtonRef, onClose }: MobileNavProps) => (
   <nav className={`${classes.header_list} ${classes.open}`}>
     <button
+      ref={closeButtonRef}
       type="button"
       className={`${classes.burger} ${classes.burgerFixed}`}
       onClick={onClose}
@@ -23,7 +25,7 @@ export const MobileNav = ({ onClose, onLinkClick }: MobileNavProps) => (
         key={link.href}
         {...link}
         className={classes.btn_animationLine}
-        onClick={onLinkClick}
+        onClick={onClose}
       />
     ))}
   </nav>

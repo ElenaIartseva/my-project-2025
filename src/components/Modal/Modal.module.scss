@@ -1,24 +1,31 @@
-@use '@vendor/styles/mixins.scss' as mixins;
-
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  color: inherit;
   background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease forwards;
 
-  &.closing {
-    animation: fadeOut 0.3s ease forwards;
+  &[open] {
+    display: flex;
+  }
+
+  &::backdrop {
+    background: transparent;
   }
 }
 
 .modal {
+  --modal-media-inset: calc(var(--space-40) + var(--space-24));
+  --modal-media-max-height: calc(90dvh - 2 * var(--modal-media-inset));
+
   background-color: var(--bg-color-card);
   background-image: linear-gradient(
     135deg,
@@ -27,19 +34,12 @@
   );
   border-radius: var(--border-radius10);
   display: grid;
-  gap: var(--space-16);
-  padding: var(--panel-padding);
+  padding: var(--modal-media-inset) var(--panel-padding);
   position: relative;
   width: 60%;
-  max-height: 90vh;
-  overflow: auto;
   transform: scale(0.9);
   opacity: 0;
   animation: zoomIn 0.3s ease 0.1s forwards;
-
-  .closing & {
-    animation: zoomOut 0.3s ease forwards;
-  }
 
   @media (max-width: 1024px) {
     width: 80%;
@@ -47,14 +47,16 @@
 }
 
 .closeButton {
-  justify-self: end;
+  position: absolute;
+  inset-block-start: var(--space-16);
+  inset-inline-end: var(--panel-padding);
   background-color: transparent;
   border: 1px solid currentColor;
   font-size: 28px;
   cursor: pointer;
   color: var(--text-color-white);
-  width: 40px;
-  height: 40px;
+  width: var(--space-40);
+  height: var(--space-40);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,15 +84,6 @@
   }
 }
 
-@keyframes fadeOut {
-  from {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-  to {
-    background-color: rgba(0, 0, 0, 0);
-  }
-}
-
 @keyframes zoomIn {
   from {
     transform: scale(0.9);
@@ -102,13 +95,22 @@
   }
 }
 
-@keyframes zoomOut {
-  from {
-    transform: scale(1);
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .modal {
+    animation: none;
+  }
+
+  .modal {
+    transform: none;
     opacity: 1;
   }
-  to {
-    transform: scale(0.9);
-    opacity: 0;
+
+  .closeButton {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
   }
 }

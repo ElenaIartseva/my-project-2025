@@ -2,6 +2,8 @@
 @use '@vendor/styles/animation.scss';
 
 .header {
+  --header-row-height: 100px;
+
   width: 100%;
   max-width: 1920px;
   display: flex;
@@ -11,6 +13,12 @@
   justify-items: center;
   position: relative;
   z-index: 40;
+
+  a:focus-visible,
+  button:focus-visible svg {
+    outline: 2px solid var(--text-color-white);
+    outline-offset: 3px;
+  }
 
   @media (max-width: 480px) {
     justify-content: center;
@@ -27,7 +35,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 100px;
+  height: var(--header-row-height);
   width: 100%;
 }
 
@@ -38,11 +46,19 @@
   gap: var(--brand-gap);
 }
 
+.navigationSlot {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--header-row-height);
+  flex-shrink: 0;
+}
+
 .header_sectionSecond {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 100px;
+  height: var(--header-row-height);
   width: 100%;
 }
 
@@ -164,12 +180,6 @@
   }
 }
 
-.header_linkFirstSection {
-  @media (max-width: 1460px) {
-    align-self: flex-end;
-  }
-}
-
 .header_list {
   display: flex;
   flex-direction: row;
@@ -185,7 +195,7 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 100px;
+    top: var(--header-row-height);
     right: 0;
     z-index: 20;
     background-color: var(--bg-color-card);
@@ -286,21 +296,4 @@
   flex-direction: row;
   align-items: center;
   gap: var(--group-gap);
-}
-
-.header_linkOpenMenu {
-  text-align: center;
-  margin: auto 0;
-
-  &:hover {
-    color: var(--text-color-blue);
-  }
-
-  @media (max-width: 1024px) {
-    color: var(--text-color-white);
-  }
-
-  @media (max-width: 480px) {
-    white-space: wrap;
-  }
 }

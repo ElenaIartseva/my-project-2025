@@ -247,12 +247,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sectionTitle {
-    background: none;
-    -webkit-text-fill-color: currentColor;
-    animation: none;
-  }
-
   .slider,
   .card,
   .control {

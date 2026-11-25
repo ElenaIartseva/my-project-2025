@@ -37,30 +37,20 @@ export const CityPage = ({ city }: CityPageProps) => {
         >
           {city.name}
         </motion.h2>
-        <motion.p
-          className={classes.cityAbout_text}
-          variants={slideUpItemVariants}
-          whileHover={{ x: -6 }}
-          transition={{ type: 'tween', duration: 0.2 }}
-        >
-          {city.text0}
-        </motion.p>
-        <motion.p
-          className={classes.cityAbout_text}
-          variants={slideUpItemVariants}
-          whileHover={{ x: -6 }}
-          transition={{ type: 'tween', duration: 0.2 }}
-        >
-          {city.text1}
-        </motion.p>
-        <motion.p
-          className={classes.cityAbout_text}
-          variants={slideUpItemVariants}
-          whileHover={{ x: -6 }}
-          transition={{ type: 'tween', duration: 0.2 }}
-        >
-          {city.text2}
-        </motion.p>
+        {[city.text0, city.text1, city.text2].map(
+          (text, index) =>
+            text && (
+              <motion.p
+                key={index}
+                className={classes.cityAbout_text}
+                variants={slideUpItemVariants}
+                whileHover={{ x: -6 }}
+                transition={{ type: 'tween', duration: 0.2 }}
+              >
+                {text}
+              </motion.p>
+            ),
+        )}
       </motion.div>
       {hasImages && (
         <div className={classes.mediaSection}>

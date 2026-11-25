@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import { PHASE_DEVELOPMENT_SERVER } from 'next/constants';
 import path from 'path';
 
 type WebpackRule = {
@@ -24,8 +25,6 @@ const getResourceQueryNot = (resourceQuery: WebpackRule['resourceQuery']) => {
 };
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
-
   images: {
     formats: ['image/webp'],
     deviceSizes: [360, 480, 768, 1024, 1280, 1920, 2560],
@@ -40,7 +39,6 @@ const nextConfig: NextConfig = {
       '@components': path.resolve(__dirname, 'src/components'),
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@images': path.resolve(__dirname, 'public/images'),
-      '@video': path.resolve(__dirname, 'public/video'),
       '@vendor': path.resolve(__dirname, 'src/vendor'),
       '@hooks': path.resolve(__dirname, 'src/hooks'),
     };
@@ -65,16 +63,18 @@ const nextConfig: NextConfig = {
       fileLoaderRule.exclude = /\.svg$/i;
     }
 
-    config.module.rules.push({
-      test: /\.(webm|mp4|mov|avi|mkv)$/i,
-      type: 'asset/resource',
-      generator: {
-        filename: 'static/videos/[name]-[hash][ext]',
-      },
-    });
-
     return config;
   },
 };
 
-export default nextConfig;
+export default function config(phase: string): NextConfig {
+  if (phase === PHASE_DEVELOPMENT_SERVER) {
+    return {
+      ...nextConfig,
+      distDir: '.next-dev',
+      typescript: { tsconfigPath: 'tsconfig.dev.json' },
+    };
+  }
+
+  return nextConfig;
+}

@@ -4,7 +4,6 @@ import { Hero } from './Hero';
 import { About } from './About';
 import { Places } from './Places';
 import { Footer } from '@components/Footer';
-import { Cookie } from '@components/Cookie';
 
 export const Main = () => {
   return (
@@ -14,7 +13,6 @@ export const Main = () => {
       <About />
       <Places />
       <Footer />
-      <Cookie />
     </main>
   );
 };

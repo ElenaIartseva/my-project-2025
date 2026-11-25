@@ -1,11 +1,7 @@
 @use '@vendor/styles/mixins.scss' as mixins;
 
 .imageModal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-16);
-  width: auto;
+  position: relative;
   animation: slideIn 0.3s ease;
 }
 
@@ -13,16 +9,11 @@
   position: relative;
   border-radius: var(--border-radius10);
   width: 100%;
-  height: 60vh;
-  min-height: 360px;
+  height: min(60dvh, var(--modal-media-max-height));
   overflow: hidden;
 
   @media (max-width: 768px) {
-    height: 50vh;
-  }
-
-  @media (max-width: 480px) {
-    height: 30vh;
+    height: min(60vw, var(--modal-media-max-height));
   }
 }
 
@@ -35,6 +26,13 @@
 }
 
 .imageCaption {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline: 0;
+  min-height: var(--modal-media-inset);
+  display: grid;
+  align-content: center;
+  padding-block: var(--space-8);
   text-align: center;
   color: var(--text-color-white);
   @include mixins.font(caption);
@@ -49,5 +47,19 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .imageModal {
+    animation: none;
+  }
+
+  .modalImage {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
   }
 }

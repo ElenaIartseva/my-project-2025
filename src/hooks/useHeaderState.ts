@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface UseHeaderStateParams {
   firstSectionClassName: string;
@@ -9,20 +9,27 @@ export const useHeaderState = ({
 }: UseHeaderStateParams) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const restoreMenuFocus = useRef(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen((prevState) => !prevState);
+  const openMenu = () => {
+    restoreMenuFocus.current = true;
+    setIsMenuOpen(true);
   };
 
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false);
   }, []);
 
-  const handleLinkClick = () => {
+  useEffect(() => {
     if (isMenuOpen) {
-      closeMenu();
+      closeButtonRef.current?.focus({ preventScroll: true });
+    } else if (restoreMenuFocus.current) {
+      menuButtonRef.current?.focus({ preventScroll: true });
+      restoreMenuFocus.current = false;
     }
-  };
+  }, [isMenuOpen]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -63,7 +70,7 @@ export const useHeaderState = ({
       {
         root: null,
         threshold: 0,
-        rootMargin: `-${firstSection.offsetHeight}px`,
+        rootMargin: `-${firstSection.offsetHeight}px 0px 0px 0px`,
       },
     );
 
@@ -76,9 +83,10 @@ export const useHeaderState = ({
 
   return {
     closeMenu,
-    handleLinkClick,
+    closeButtonRef,
     isFixed,
     isMenuOpen,
-    toggleMenu,
+    menuButtonRef,
+    openMenu,
   };
 };

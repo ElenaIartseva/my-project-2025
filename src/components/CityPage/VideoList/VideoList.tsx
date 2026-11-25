@@ -140,7 +140,7 @@ export const VideoList: React.FC<VideoListProps> = ({ city }) => {
         isOpen={selectedVideo !== null}
         onClose={() => setSelectedVideo(null)}
       >
-        {selectedVideo && <VideoPlayer url={selectedVideo} isModalOpen />}
+        {selectedVideo && <VideoPlayer url={selectedVideo} />}
       </Modal>
     </>
   );

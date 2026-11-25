@@ -3,6 +3,18 @@ import { axe } from 'jest-axe';
 import { Modal } from '../Modal';
 
 describe('Modal accessibility', () => {
+  beforeAll(() => {
+    Object.assign(HTMLDialogElement.prototype, {
+      showModal(this: HTMLDialogElement) {
+        this.open = true;
+        this.querySelector('button')?.focus();
+      },
+      close(this: HTMLDialogElement) {
+        this.open = false;
+      },
+    });
+  });
+
   it('renders an accessible dialog without axe violations', async () => {
     const { container } = render(
       <Modal isOpen={true} onClose={jest.fn()}>
@@ -24,7 +36,10 @@ describe('Modal accessibility', () => {
       </Modal>,
     );
 
-    fireEvent.keyDown(document, { key: 'Escape' });
+    fireEvent(
+      screen.getByRole('dialog'),
+      new Event('cancel', { cancelable: true }),
+    );
 
     expect(onClose).toHaveBeenCalledTimes(1);
   });
@@ -46,17 +61,29 @@ describe('Modal accessibility', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it('restores body overflow after unmount', () => {
-    const { unmount } = render(
-      <Modal isOpen={true} onClose={jest.fn()}>
-        <p>Контент модального окна</p>
-      </Modal>,
+  it('focuses the close button and restores focus and overflow when closed', () => {
+    const onClose = jest.fn();
+    const view = (isOpen: boolean) => (
+      <>
+        <button type="button">Открыть</button>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <p>Контент модального окна</p>
+        </Modal>
+      </>
     );
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'clip';
+    const { rerender } = render(view(false));
+    const opener = screen.getByRole('button', { name: 'Открыть' });
+    opener.focus();
+    rerender(view(true));
 
+    expect(screen.getByRole('button', { name: 'Закрыть' })).toHaveFocus();
     expect(document.body.style.overflow).toBe('hidden');
 
-    unmount();
-
-    expect(document.body.style.overflow).toBe('unset');
+    rerender(view(false));
+    expect(opener).toHaveFocus();
+    expect(document.body.style.overflow).toBe('clip');
+    document.body.style.overflow = previousOverflow;
   });
 });

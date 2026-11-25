@@ -1,22 +1,15 @@
 @use '@vendor/styles/mixins.scss' as mixins;
 
-.modalOverlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  padding: var(--space-16);
-  z-index: 999;
-}
-
 .modalWindow {
+  position: fixed;
+  inset-inline-end: var(--space-16);
+  inset-block-end: var(--space-16);
+  z-index: 999;
   background-color: color-mix(in srgb, #17171e 92%, transparent);
   border: 1px solid var(--border-header-color);
   border-radius: var(--border-radius20);
-  width: min(100%, 400px);
-  max-height: 100%;
+  width: min(calc(100% - 2 * var(--space-16)), 400px);
+  max-height: calc(100% - 2 * var(--space-16));
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -49,13 +42,14 @@
   border: 1px solid currentColor;
   border-radius: var(--border-radius500);
   background-color: transparent;
-  color: var(--text-color-white);
+  color: var(--cookie-action-color, var(--text-color-white));
   cursor: pointer;
   font-family: inherit;
   @include mixins.font(control);
   text-align: center;
 
   &:hover {
+    color: var(--text-color-white);
     background-color: color-mix(
       in srgb,
       var(--bg-color-purple) 75%,
@@ -68,7 +62,13 @@
     outline-offset: 3px;
   }
 
-  &:active {
-    transform: scale(0.97);
+  @media (prefers-reduced-motion: no-preference) {
+    &:active {
+      transform: scale(0.97);
+    }
   }
+}
+
+.secondary {
+  --cookie-action-color: var(--text-color-grey);
 }

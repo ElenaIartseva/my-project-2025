@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import type { Ref } from 'react';
 import classes from '../Header.module.scss';
 import Menu from '@images/btn/burger_menu_white.svg';
 import logo from '@images/logo/logo_blue.webp';
@@ -7,14 +8,14 @@ import { HeaderLink } from '../HeaderLink/HeaderLink';
 
 interface DesktopNavProps {
   isFixed: boolean;
-  onMenuToggle: () => void;
-  onLinkClick: () => void;
+  menuButtonRef: Ref<HTMLButtonElement>;
+  onMenuOpen: () => void;
 }
 
 export const DesktopNav = ({
   isFixed,
-  onMenuToggle,
-  onLinkClick,
+  menuButtonRef,
+  onMenuOpen,
 }: DesktopNavProps) => (
   <nav className={classes.header_list}>
     <div className={classes.header_linkOpenMenuWrapper}>
@@ -23,7 +24,6 @@ export const DesktopNav = ({
           key={link.href}
           {...link}
           className={`${classes.header_link} ${classes.btn_animationLine}`}
-          onClick={onLinkClick}
         />
       ))}
     </div>
@@ -37,14 +37,15 @@ export const DesktopNav = ({
             key={link.href}
             {...link}
             className={`${classes.header_link} ${classes.btn_animationLine}`}
-            onClick={onLinkClick}
           />
         ))}
         <button
+          ref={menuButtonRef}
           type="button"
           className={`${classes.burger} ${classes.burgerFixed}`}
-          onClick={onMenuToggle}
+          onClick={onMenuOpen}
           aria-label="Открыть меню"
+          aria-expanded={false}
         >
           <Menu
             className={`${classes.header_menu} ${classes.header_menuFixed}`}
@@ -58,7 +59,6 @@ export const DesktopNav = ({
             key={link.href}
             {...link}
             className={`${classes.header_link} ${classes.btn_animationLine}`}
-            onClick={onLinkClick}
           />
         ))}
       </div>

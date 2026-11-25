@@ -28,13 +28,17 @@
 
 ✔️ `npm run typecheck` — проверка TypeScript
 
-✔️ `npm run lint` — проверка ESLint/Next.js
+✔️ `npm run lint` — проверка ESLint с правилами Next.js
 
 ✔️ `npm run test` — запуск Jest-тестов
 
 ✔️ `npm run build` — production-сборка Next.js
 
 ✔️ `npm run check` — общий сценарий: typecheck + lint + test + build
+
+`npm run dev` использует каталог `.next-dev`. Команды `npm run build` и
+`npm run start` используют `.next`, поэтому production-сборку можно запускать
+при работающем dev-сервере.
 
 ### Что покрыто тестами:
 

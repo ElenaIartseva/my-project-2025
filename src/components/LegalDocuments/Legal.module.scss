@@ -1,5 +1,4 @@
 @use '@vendor/styles/mixins.scss' as mixins;
-@use '@vendor/styles/animation.scss';
 
 .page {
   min-height: 100vh;
@@ -26,22 +25,29 @@
 }
 
 .legalAbout {
-  flex: 1 0 auto;
-  overflow: hidden;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 40%;
-  height: 100%;
+  gap: var(--group-gap);
+  width: min(100%, 70ch);
+  color: var(--text-color-light-grey);
+  @include mixins.font(body);
 
-  @media (max-width: 1024px) {
-    width: 60%;
+  section {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-16);
   }
 
-  @media (max-width: 768px) {
-    width: 100%;
+  a {
+    color: var(--text-color-white);
+    text-decoration: underline;
+    overflow-wrap: anywhere;
+  }
+
+  a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
   }
 }
 
@@ -49,7 +55,12 @@
   flex-shrink: 0;
 }
 
-.legalAbout_text {
-  color: var(--text-color-grey);
-  @include mixins.font(body);
+.title {
+  color: var(--text-color-white);
+  @include mixins.font(section);
+}
+
+.subtitle {
+  color: var(--text-color-white);
+  @include mixins.font(dialog);
 }

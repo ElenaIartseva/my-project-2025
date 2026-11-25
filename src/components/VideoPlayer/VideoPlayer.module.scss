@@ -1,12 +1,12 @@
 .player_wrapper {
-  position: relative;
   width: 100%;
   max-width: 1200px;
-  height: 70vh;
+  aspect-ratio: 16 / 9;
+  max-height: var(--modal-media-max-height);
   margin: 0 auto;
 }
 
 .react_player {
-  border-radius: 8px;
+  border-radius: var(--border-radius10);
   overflow: hidden;
 }

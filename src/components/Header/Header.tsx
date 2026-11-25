@@ -11,10 +11,14 @@ import { DesktopNav } from './DesktopNav/DesktopNav';
 import { MobileNav } from './MobileNav/MobileNav';
 
 export const Header = () => {
-  const { closeMenu, handleLinkClick, isFixed, isMenuOpen, toggleMenu } =
-    useHeaderState({
-      firstSectionClassName: classes.header_sectionFirst,
-    });
+  const {
+    closeMenu,
+    closeButtonRef,
+    isFixed,
+    isMenuOpen,
+    menuButtonRef,
+    openMenu,
+  } = useHeaderState({ firstSectionClassName: classes.header_sectionFirst });
 
   return (
     <header className={classes.header} id="top">
@@ -33,29 +37,35 @@ export const Header = () => {
         </div>
         <ContactLinks />
       </div>
-      <div
-        className={`${classes.header_sectionSecond} ${
-          isFixed ? classes.header_sectionSecondFixed : ''
-        }`}
-      >
-        {isMenuOpen ? (
-          <MobileNav onClose={closeMenu} onLinkClick={handleLinkClick} />
-        ) : (
-          <DesktopNav
-            isFixed={isFixed}
-            onMenuToggle={toggleMenu}
-            onLinkClick={handleLinkClick}
-          />
-        )}
+      <div className={classes.navigationSlot}>
+        <div
+          className={`${classes.header_sectionSecond} ${
+            isFixed ? classes.header_sectionSecondFixed : ''
+          }`}
+        >
+          {isMenuOpen ? (
+            <MobileNav closeButtonRef={closeButtonRef} onClose={closeMenu} />
+          ) : (
+            <DesktopNav
+              isFixed={isFixed}
+              menuButtonRef={menuButtonRef}
+              onMenuOpen={openMenu}
+            />
+          )}
+        </div>
       </div>
-      <button
-        type="button"
-        className={classes.burger}
-        onClick={toggleMenu}
-        aria-label="Открыть меню"
-      >
-        {isMenuOpen ? '' : <Menu className={classes.header_menu} />}
-      </button>
+      {!isFixed && !isMenuOpen && (
+        <button
+          ref={menuButtonRef}
+          type="button"
+          className={classes.burger}
+          onClick={openMenu}
+          aria-label="Открыть меню"
+          aria-expanded={false}
+        >
+          <Menu className={classes.header_menu} />
+        </button>
+      )}
       {isMenuOpen && <div className={classes.overlay} onClick={closeMenu} />}
     </header>
   );
